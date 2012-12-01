@@ -8,9 +8,17 @@ Site::Application.routes.draw do
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact' 
+describe "signin" do
+    before { visit signin_path }
 
-  root to: "static_pages#home"
+    describe "with invalid information" do
+      before { click_button "Sign in" }
 
+      it { should have_selector('title', text: 'Sign in') }
+      it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+    end
+  end
+end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
